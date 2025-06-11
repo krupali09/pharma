@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Delivery Manager - Scheduled Deliveries</title>
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- Signature + PDF libraries -->
+<!-- Signature Pad -->
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+
+<!-- PDF Support: html2canvas + jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+
+
+</head>
+
+<body>
+    <h1>Scheduled Deliveries</h1>
+    <div class="scheduleButton">
+    <button id="goBackBtn">Back to Add Delivery</button>
+    <!-- <button id="downloadCsvBtn">Download Weekly CSV</button> -->
+    <button id="downloadPdfBtn">Download PDF</button>
+    </div>
+
+    <div id="message"></div>
+    <div id="deliveriesContainer"></div>
+
+    <!-- Modal Form -->
+    <div id="rxModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModalBtn" class="close">&times;</span>
+            <h2>Update RX Details & Signature</h2>
+            <form id="rxForm">
+                <input type="hidden" id="entryKeyInput" />
+                <label>Name:<br><textarea id="rxDetails" rows="3" style="width:100%;"></textarea></label><br><br>
+                <label>Signature:<br><canvas id="signatureCanvas"></canvas></label><br><br>
+                <button type="submit">Save</button>
+                <button type="button" id="clearSignatureBtn">Clear Signature</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="js/scheduled.js"></script>
+</body>
+
+</html>
