@@ -46,6 +46,28 @@
         </div>
     </div>
 
+<div id="editModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span id="closeEditModalBtn" class="close">&times;</span>
+        <h3 id="editModalTitle">Reschedule Delivery</h3>
+        <form id="editForm">
+            <input type="hidden" id="editKeyInput" />
+            <label for="editDate">New Delivery Date:</label>
+            <input type="date" id="editDate" required />
+            <div style="margin-top: 15px;">
+                <button type="submit">Save</button>
+                <!-- Remove old cancel/close button -->
+                <button type="button" id="deleteEntryBtn" style="color: red;">Delete Entry</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
     <script type="module" src="js/scheduled.js"></script>
 </body>
 

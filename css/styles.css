@@ -278,3 +278,124 @@ button#goScheduledBtn:hover {
 #clearSignatureBtn:hover {
     background-color: #bbb;
 }
+
+/* Scoped styles for editModal only */
+#editModal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 100px;
+}
+
+#editModal h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: #333;
+}
+
+#editModal label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #555;
+}
+
+#editModal input[type="date"] {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 1rem;
+    border: 1.5px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+}
+
+#editModal input[type="date"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+#editModal>form>div {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+#editModal button {
+    background-color: #0c2340;
+        color: #fff;
+        border: none;
+        padding: 1rem 1.5rem;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        width: 100%;
+        margin-top: 1rem;
+}
+
+#editModal button[type="submit"] {
+    /* background-color: #28a745; */
+    color: white;
+}
+
+#editModal button[type="submit"]:hover {
+    background-color: rgb(238, 85, 52);
+}
+/* 
+#editModal #cancelEditBtn {
+    background-color: #6c757d;
+    color: white;
+}
+
+#editModal #cancelEditBtn:hover {
+    background-color: #5a6268;
+} */
+
+#editModal #deleteEntryBtn {
+    background-color: #dc3545;
+    color: white !important;
+}
+
+#editModal #deleteEntryBtn:hover {
+    background-color: #c82333;
+}
+
+/* Modal Content Box */
+.modal-content {
+    background-color: #fff;
+    padding: 20px 30px 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    /* needed for close button positioning */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin: auto;
+}
+
+/* Close Button (×) */
+.close {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.3s ease;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+}
