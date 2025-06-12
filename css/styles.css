@@ -1,4 +1,4 @@
-* {
+/* * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -51,7 +51,7 @@ h1 {
 }
 
 .fullform {
-    max-width: 600px;
+    max-width: 1200px;
     margin: 2rem auto;
     padding: 2rem;
     background-color: #f9f9f9;
@@ -105,7 +105,6 @@ button {
 button:hover {
     background-color: rgb(238, 85, 52);
     transform: translateY(-2px) scale(1.02);
-    /* transform: translateY(-2px); */
 }
 
 button:disabled {
@@ -144,7 +143,201 @@ button#goScheduledBtn:hover {
         padding: 1rem;
         width: auto;
     }
+} */
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
+
+html,
+body {
+    height: auto;
+    overflow-y: auto;
+}
+
+body {
+    color: #0c2340;
+    background: #fff;
+}
+
+/* Only apply special background and layout on index page */
+body.indexpage {
+    background-image: url('../img/meds.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* disables scroll ONLY on form page */
+    height: 100vh;
+}
+
+body.indexpage::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: -1;
+    padding: 20px;
+}
+
+h1,
+p,
+button {
+    color: white;
+    z-index: 1;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-top: 2rem;
+    color: #0c2340;
+}
+
+.fullform {
+    width: 90%;
+    max-width: 900px;
+    max-height: 95vh;
+    overflow-y: auto;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.texty {
+    display: block;
+    color: #0c2340;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="date"],
+textarea,
+select {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 2px solid #0c2340;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #0c2340;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.name1 {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.name1 .form-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.button-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.button-row button {
+    flex: 1;
+    min-width: 150px;
+}
+
+button {
+    background-color: #0c2340;
+    color: #fff;
+    border: none;
+    padding: 1rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: rgb(238, 85, 52);
+    transform: translateY(-2px) scale(1.02);
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+button#goScheduledBtn {
+    background-color: #0c2340;
+}
+
+button#goScheduledBtn:hover {
+    background-color: rgb(238, 85, 52);
+    transform: translateY(-2px) scale(1.02);
+}
+
+#message {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+#errorMessage {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        overflow: auto;
+    }
+
+    .fullform {
+        padding: 1rem;
+    }
+
+    button {
+        padding: 1rem;
+        width: auto;
+    }
+}
+
+/* Keep the rest of your styles unchanged below */
 
 #deliveriesContainer {
     margin: 20px;
@@ -196,7 +389,7 @@ button#goScheduledBtn:hover {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
-    padding-top: 100px;
+    /* padding-top: 100px; */
 }
 
 .modal-content {
@@ -290,7 +483,7 @@ button#goScheduledBtn:hover {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
-    padding-top: 100px;
+    /* padding-top: 100px; */
 }
 
 #editModal h3 {

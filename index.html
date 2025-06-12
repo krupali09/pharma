@@ -12,59 +12,71 @@
 <body class="indexpage">
 
     <div class="fullform">
-    <h1>Delivery Manager</h1>
+        <h1>Delivery Manager</h1>
 
-    <form id="deliveryForm">
-        <div class="form-group">
-            <label for="deliverySelect" class="texty">Select Patient:</label>
-            <select id="deliverySelect">
-                <option value="">-- New Entry --</option>
-            </select>
-        </div>
-    
-        <div class="name1">
-        <div class="form-group">
-            <label class="texty" for="name">Name:</label>
-            <input type="text" id="name" required />
-        </div>
-    
-        <div class="form-group">
-            <label class="texty" for="phone">Phone:</label>
-            <input type="tel" id="phone" pattern="[0-9]{10}" required />
-        </div>
-        </div>
-    
-        <div class="form-group">
-            <label class="texty" for="address">Address:</label>
-            <textarea id="address" required></textarea>
-        </div>
-    
-        <div class="name1">
-        <div class="form-group">
-            <label class="texty" for="rxDetails">RX Details:</label>
-            <!-- <input type="text" id="rxDetails" required /> -->
-            <textarea id="rxDetails" required></textarea>
-        </div>
-    
-        <div class="form-group">
-            <label class="texty" for="date">Delivery Date:</label>
-            <input type="date" id="date" required />
-        </div>
-        </div>
+        <form id="deliveryForm">
+            <!-- Select Patient Dropdown -->
+            <div class="form-group">
+                <label for="deliverySelect" class="texty">Select Patient:</label>
+                <select id="deliverySelect">
+                    <option value="">-- New Entry --</option>
+                </select>
+            </div>
 
-        <button type="submit" id="addBtn">Add Delivery</button>
-        <button type="button" id="updateBtn">Update Details</button>
-        
-        <button id="goScheduledBtn">Go to Scheduled Deliveries</button>
-    </form>
+            <!-- Name and Phone Side by Side -->
+            <div class="name1">
+                <div class="form-group">
+                    <label class="texty" for="name">Name:</label>
+                    <input type="text" id="name" required />
+                </div>
 
+                <div class="form-group">
+                    <label class="texty" for="phone">Phone:</label>
+                    <input type="tel" id="phone" pattern="[0-9]{10}" required />
+                </div>
+            </div>
 
+            <!-- Address and RX Details Side by Side -->
+            <div class="name1">
+                <div class="form-group">
+                    <label class="texty" for="address">Address:</label>
+                    <textarea id="address" required></textarea>
+                </div>
 
-    <p id="message"></p>
+                <div class="form-group">
+                    <label class="texty" for="rxDetails">RX Details:</label>
+                    <textarea id="rxDetails" required></textarea>
+                </div>
+            </div>
+
+            <!-- Date and Driver Side by Side -->
+            <div class="name1">
+                <div class="form-group">
+                    <label class="texty" for="date">Delivery Date:</label>
+                    <input type="date" id="date" required />
+                </div>
+
+                <div class="form-group">
+                    <label class="texty" for="driver">Driver:</label>
+                    <select id="driver" required>
+                        <option value="">-- Select Driver --</option>
+                        <option value="Parth">Parth</option>
+                        <option value="Meshraj">Meshraj</option>
+                        <option value="Jean Paul">Jean Paul</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-row">
+                <button type="submit" id="addBtn">Add Delivery</button>
+                <button type="button" id="updateBtn">Update Details</button>
+                <button id="goScheduledBtn" type="button">Go to Scheduled Deliveries</button>
+            </div>
+        </form>
+
+        <p id="message"></p>
     </div>
-
-
-    
 
     <script type="module" src="js/index.js"></script>
 </body>

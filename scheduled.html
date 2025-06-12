@@ -32,19 +32,21 @@
     <div id="deliveriesContainer"></div>
 
     <!-- Modal Form -->
-    <div id="rxModal" class="modal">
-        <div class="modal-content">
-            <span id="closeModalBtn" class="close">&times;</span>
-            <h2>Update RX Details & Signature</h2>
-            <form id="rxForm">
-                <input type="hidden" id="entryKeyInput" />
-                <label>Name:<br><textarea id="rxDetails" rows="3" style="width:100%;"></textarea></label><br><br>
-                <label>Signature:<br><canvas id="signatureCanvas"></canvas></label><br><br>
-                <button type="submit">Save</button>
-                <button type="button" id="clearSignatureBtn">Clear Signature</button>
-            </form>
-        </div>
+<div id="rxModal" class="modal">
+    <div class="modal-content">
+        <span id="closeModalBtn" class="close">&times;</span>
+        <h2 id="rxModalTitle">Signature</h2>
+        <form id="rxForm">
+            <input type="hidden" id="entryKeyInput" />
+            <!-- <label id="signatureLabel">Signature for:<br> -->
+                <canvas id="signatureCanvas"></canvas>
+            </label><br><br>
+            <button type="submit">Save</button>
+            <button type="button" id="clearSignatureBtn">Clear Signature</button>
+        </form>
     </div>
+</div>
+
 
 <div id="editModal" class="modal" style="display: none;">
     <div class="modal-content">
@@ -56,7 +58,6 @@
             <input type="date" id="editDate" required />
             <div style="margin-top: 15px;">
                 <button type="submit">Save</button>
-                <!-- Remove old cancel/close button -->
                 <button type="button" id="deleteEntryBtn" style="color: red;">Delete Entry</button>
             </div>
         </form>
