@@ -5,69 +5,52 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Delivery Manager - Scheduled Deliveries</title>
-    <link rel="icon" href="medical-05_icon-icons.com_73942.ico" type="image/x-icon">
+    <link rel="icon" href="medical-05_icon-icons.com_73942.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/styles.css" />
 
-    <!-- Signature + PDF libraries -->
-<!-- Signature Pad -->
-<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
-
-<!-- PDF Support: html2canvas + jsPDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
-
-
+    <!-- Signature Pad -->
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 </head>
 
 <body>
     <h1>Scheduled Deliveries</h1>
     <div class="scheduleButton">
-    <button id="goBackBtn">Back to Add Delivery</button>
-    <!-- <button id="downloadCsvBtn">Download Weekly CSV</button> -->
-    <button id="downloadPdfBtn">Download PDF</button>
+        <button id="goBackBtn">Back to Add Delivery</button>
+        <button id="goCompletedBtn">Completed Deliveries</button>
     </div>
 
     <div id="message"></div>
     <div id="deliveriesContainer"></div>
 
     <!-- Modal Form -->
-<div id="rxModal" class="modal">
-    <div class="modal-content">
-        <span id="closeModalBtn" class="close">&times;</span>
-        <h2 id="rxModalTitle">Signature</h2>
-        <form id="rxForm">
-            <input type="hidden" id="entryKeyInput" />
-            <!-- <label id="signatureLabel">Signature for:<br> -->
-                <canvas id="signatureCanvas"></canvas>
-            </label><br><br>
-            <button type="submit">Save</button>
-            <button type="button" id="clearSignatureBtn">Clear Signature</button>
-        </form>
-    </div>
-</div>
-
-
-<div id="editModal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <span id="closeEditModalBtn" class="close">&times;</span>
-        <h3 id="editModalTitle">Reschedule Delivery</h3>
-        <form id="editForm">
-            <input type="hidden" id="editKeyInput" />
-            <label for="editDate">New Delivery Date:</label>
-            <input type="date" id="editDate" required />
-            <div style="margin-top: 15px;">
+    <div id="rxModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModalBtn" class="close">&times;</span>
+            <h2 id="rxModalTitle">Signature</h2>
+            <form id="rxForm">
+                <input type="hidden" id="entryKeyInput" />
+                <canvas id="signatureCanvas"></canvas><br /><br />
                 <button type="submit">Save</button>
-                <button type="button" id="deleteEntryBtn" style="color: red;">Delete Entry</button>
-            </div>
-        </form>
+                <button type="button" id="clearSignatureBtn">Clear Signature</button>
+            </form>
+        </div>
     </div>
-</div>
 
-
-
-
-
+    <div id="editModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span id="closeEditModalBtn" class="close">&times;</span>
+            <h3 id="editModalTitle">Reschedule Delivery</h3>
+            <form id="editForm">
+                <input type="hidden" id="editKeyInput" />
+                <label for="editDate">New Delivery Date:</label>
+                <input type="date" id="editDate" required />
+                <div style="margin-top: 15px;">
+                    <button type="submit">Save</button>
+                    <button type="button" id="deleteEntryBtn" style="color: red;">Delete Entry</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script type="module" src="js/scheduled.js"></script>
 </body>

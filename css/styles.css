@@ -592,3 +592,39 @@ button#goScheduledBtn:hover {
 .close:focus {
     color: #000;
 }
+
+
+.month-tabs {
+    margin-bottom: 20px;
+}
+
+.month-tabs button {
+    margin-right: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    border: 1px solid #888;
+    background: white;
+}
+
+.month-tabs button.active-tab {
+    background: #007bff;
+    color: white;
+    border-color: #0056b3;
+}
+
+.completed-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.completed-table th,
+.completed-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.completed-table th {
+    background-color: #f0f0f0;
+}

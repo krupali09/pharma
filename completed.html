@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Completed Deliveries</title>
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- PDF Support -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        .month-tabs button.active {
+            font-weight: bold;
+            background-color: #ddd;
+        }
+
+        table.completed-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        table.completed-table th,
+        table.completed-table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        img {
+            max-width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>2025 Deliveries</h1>
+
+    <div class="month-tabs" id="monthTabs"></div>
+    <div id="completedContainer"></div>
+
+    <button onclick="window.location.href='index.html'">Back to Add Delivery</button>
+    <button onclick="window.location.href='scheduled.html'">Back to Delivery Page</button>
+    <button id="downloadPdfBtn">Download PDF</button>
+
+    <script type="module" src="js/completed.js"></script>
+</body>
+
+</html>
