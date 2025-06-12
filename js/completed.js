@@ -80,7 +80,7 @@ function renderDeliveriesForMonth(monthIndex) {
     const deliveries = deliveriesByMonth[firebaseMonthIndex] || [];
 
     if (deliveries.length === 0) {
-        completedContainer.textContent = "No completed deliveries for " + monthNames[monthIndex];
+        completedContainer.textContent = "Looks like the packages are still in the waiting room for month of " + monthNames[monthIndex];
         return;
     }
 

@@ -77,13 +77,12 @@ window.addEventListener("DOMContentLoaded", () => {
     function renderGroupedTable(data) {
         const entries = Object.entries(data)
             .map(([key, d]) => ({ key, ...d }))
-            .filter((e) => !e.deleted && new Date(e.date).getTime() >= todayMidnight())
-            .filter((e) => !e.signature)  // Add this filter to only show unsign deliveries
+            .filter((e) => !e.deleted && !e.signature)  // Remove signed entries
             .sort((a, b) => new Date(a.date) - new Date(b.date));
 
         container.innerHTML = "";
         if (entries.length === 0) {
-            container.textContent = "No upcoming deliveries.";
+            container.textContent = "No deliveries available.";
             return;
         }
 
@@ -99,40 +98,45 @@ window.addEventListener("DOMContentLoaded", () => {
         });
 
         const groupedEntries = {};
+
+        // Group entries by date
         entries.forEach((entry) => {
             const entryDate = new Date(entry.date);
-            const day = entryDate.getDate();
             const formattedDate = formatDate(entry.date);
 
-            if (!groupedEntries[day]) {
-                groupedEntries[day] = [];
+            // Group by the formatted date
+            if (!groupedEntries[formattedDate]) {
+                groupedEntries[formattedDate] = [];
             }
 
-            groupedEntries[day].push({ ...entry, formattedDate });
+            groupedEntries[formattedDate].push({ ...entry, formattedDate });
         });
 
-        const sortedDays = Object.keys(groupedEntries).sort((a, b) => a - b);
-        sortedDays.forEach((day) => {
+        // Sort the days by date
+        const sortedDates = Object.keys(groupedEntries).sort((a, b) => new Date(a) - new Date(b));
+
+        // Render each group of entries
+        sortedDates.forEach((date) => {
             const groupHeaderRow = table.insertRow();
             const cell = groupHeaderRow.insertCell();
             cell.colSpan = 7;
             cell.className = "date-group-header";
-            cell.textContent = `${groupedEntries[day][0].formattedDate}`;
+            cell.textContent = `${date}`;
 
-            groupedEntries[day].forEach((entry) => {
+            groupedEntries[date].forEach((entry) => {
                 const row = table.insertRow();
-                row.innerHTML = ` 
-          <td>${entry.name}</td>
-          <td>${entry.phone}</td>
-          <td>${entry.address}</td>
-          <td>${entry.rxDetails || "-"}</td>
-          <td>${entry.driver || "-"}</td>
-          <td>${entry.signature ? `<img src="${entry.signature}" width="100">` : "-"}</td>
-          <td class="tdclass">
-            <button data-key="${entry.key}" class="loadBtn" ${entry.signature ? "disabled" : ""}>Sign</button>
-            <button data-key="${entry.key}" class="editBtn" ${entry.signature ? "disabled" : ""}>Reschedule</button>
-          </td>
-        `;
+                row.innerHTML = `
+                    <td>${entry.name}</td>
+                    <td>${entry.phone}</td>
+                    <td>${entry.address}</td>
+                    <td>${entry.rxDetails || "-"}</td>
+                    <td>${entry.driver || "-"}</td>
+                    <td>${entry.signature ? `<img src="${entry.signature}" width="100">` : "-"}</td>
+                    <td class="tdclass">
+                        <button data-key="${entry.key}" class="loadBtn" ${entry.signature ? "disabled" : ""}>Sign</button>
+                        <button data-key="${entry.key}" class="editBtn" ${entry.signature ? "disabled" : ""}>Reschedule</button>
+                    </td>
+                `;
             });
         });
 
@@ -148,12 +152,6 @@ window.addEventListener("DOMContentLoaded", () => {
             year: "numeric",
             timeZone: "America/Toronto",
         });
-    }
-
-    function todayMidnight() {
-        const t = new Date();
-        t.setHours(0, 0, 0, 0);
-        return t.getTime();
     }
 
     function attachRowHandlers(data) {
