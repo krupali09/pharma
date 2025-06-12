@@ -12,11 +12,11 @@
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 </head>
 
-<body>
-    <h1>Scheduled Deliveries</h1>
+<body class="container">
+    <h1>Upcoming Deliveries</h1>
     <div class="scheduleButton">
-        <button id="goBackBtn">Back to Add Delivery</button>
-        <button id="goCompletedBtn">Completed Deliveries</button>
+        <button id="goBackBtn">Get Deliveries Rolling</button>
+        <button id="goCompletedBtn">Completed Deliveries Log</button>
     </div>
 
     <div id="message"></div>
@@ -30,8 +30,11 @@
             <form id="rxForm">
                 <input type="hidden" id="entryKeyInput" />
                 <canvas id="signatureCanvas"></canvas><br /><br />
+                
+                <div class="scheduleButton">
                 <button type="submit">Save</button>
                 <button type="button" id="clearSignatureBtn">Clear Signature</button>
+                </div>
             </form>
         </div>
     </div>
@@ -42,7 +45,7 @@
             <h3 id="editModalTitle">Reschedule Delivery</h3>
             <form id="editForm">
                 <input type="hidden" id="editKeyInput" />
-                <label for="editDate">New Delivery Date:</label>
+                <!-- <label for="editDate">New Delivery Date:</label> -->
                 <input type="date" id="editDate" required />
                 <div style="margin-top: 15px;">
                     <button type="submit">Save</button>

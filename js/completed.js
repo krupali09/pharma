@@ -20,7 +20,7 @@ const completedContainer = document.getElementById("completedContainer");
 const downloadPdfBtn = document.getElementById("downloadPdfBtn");
 
 const monthNames = [
-    "June", "July", "August", "September", "October", "November", "December"
+    "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 ];
 let currentMonthIndex = 0;
 let deliveriesByMonth = {};
