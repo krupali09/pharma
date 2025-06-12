@@ -48,8 +48,8 @@ body.indexpage {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-    height: 100vh;
+    /* overflow: hidden; */
+    height: auto;
 }
 
 body.indexpage::before {
