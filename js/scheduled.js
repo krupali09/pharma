@@ -126,12 +126,12 @@ window.addEventListener("DOMContentLoaded", () => {
             groupedEntries[date].forEach((entry) => {
                 const row = table.insertRow();
                 row.innerHTML = `
-                    <td>${entry.name}</td>
-                    <td>${entry.phone}</td>
-                    <td>${entry.address}</td>
-                    <td>${entry.rxDetails || "-"}</td>
-                    <td>${entry.driver || "-"}</td>
-                    <td>${entry.signature ? `<img src="${entry.signature}" width="100">` : "-"}</td>
+                    <td>  <span class="label">Name: </span> ${entry.name}</td>
+                    <td><span class="label">Phone: </span> ${entry.phone}</td>
+                    <td><span class="label">Location: </span> ${entry.address}</td>
+                    <td><span class="label">RxDetails: </span> ${entry.rxDetails || "-"}</td>
+                    <td><span class="label">Driver: </span> ${entry.driver || "-"}</td>
+                    <td><span class="label">Sign: </span>${entry.signature ? `<img src="${entry.signature}" width="100">` : "-"}</td>
                     <td class="tdclass">
                         <button data-key="${entry.key}" class="loadBtn" ${entry.signature ? "disabled" : ""}>Sign</button>
                         <button data-key="${entry.key}" class="editBtn" ${entry.signature ? "disabled" : ""}>Reschedule</button>

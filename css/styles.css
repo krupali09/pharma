@@ -1,3 +1,4 @@
+/* General Styles */
 * {
     margin: 0;
     padding: 0;
@@ -39,6 +40,24 @@ button {
     z-index: 1;
 }
 
+h1 {
+    font-size: 2.5rem;
+    color: #0c2340;
+    text-align: center;
+}
+
+label,
+span {
+    font-weight: 500 !important;
+}
+
+td span {
+    font-weight: bolder;
+    color: red;
+}
+
+
+/* index styles */
 body.indexpage {
     background-image: url('../img/meds.jpg');
     background-size: cover;
@@ -48,7 +67,6 @@ body.indexpage {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* overflow: hidden; */
     height: auto;
 }
 
@@ -65,20 +83,17 @@ body.indexpage::before {
     padding: 20px;
 }
 
-h1 {
-    font-size: 2.5rem;
-    color: #0c2340;
-    text-align: center;
-}
-
+/* scheduled styles */
 .container {
     padding: 20px;
 }
 
+/* comepleted styles */
 #completedContainer {
     padding-top: 20px;
 }
 
+/* button styles */
 .scheduleButton {
     display: flex;
     gap: 20px;
@@ -91,10 +106,26 @@ h1 {
     max-width: 200px;
 }
 
-.month-tabs button {
-    max-width: 90px;
-    padding-top: 20px;
+
+.tdclass button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
+
+.tdclass button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
 
 button {
     background-color: #0c2340;
@@ -126,6 +157,43 @@ button:disabled {
     justify-content: center;
     margin-top: 1.5rem;
 }
+
+.month-tabs button.active-tab {
+    background: #007bff;
+    color: white;
+    border-color: #0056b3;
+}
+
+.month-tabs button {
+    margin-right: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    border: 1px solid #888;
+    background: white;
+    max-width: 90px;
+    padding-top: 20px;
+}
+
+.month-tabs button.active {
+    font-weight: bold;
+    background-color: #ddd;
+}
+
+#deleteEntryBtn {
+    background-color: #dc3545;
+    color: white !important;
+}
+
+#deleteEntryBtn:hover {
+    background-color: #c82333;
+}
+
+
+.loadBtn {
+    margin-bottom: 20px;
+}
+
+/* Form styles */
 
 input[type="text"],
 input[type="tel"],
@@ -175,6 +243,7 @@ textarea {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* scheduled styles */
 .modal-content {
     background-color: #fff;
     padding: 20px;
@@ -204,17 +273,9 @@ textarea {
     color: black;
 }
 
-@media screen and (max-width: 768px) {
-    .fullform {
-        padding: 1rem;
-    }
 
-    button {
-        width: auto;
-        padding: 1rem;
-    }
-}
 
+/* table styles generic */
 tbody {
     background-color: white;
 }
@@ -224,18 +285,8 @@ tr th {
     border: 2px solid #0c2340;
 }
 
-.tdclass button {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-}
 
-.loadBtn {
-    margin-bottom: 20px;
-}
+/* modal */
 
 #rxModal,
 #editModal {
@@ -274,60 +325,20 @@ tr th {
     margin-top: 10px;
 }
 
-.close {
-    position: absolute;
-    top: 12px;
-    right: 15px;
-    font-size: 28px;
-    font-weight: bold;
-    color: #888;
-    cursor: pointer;
-    user-select: none;
-}
-
-.close:hover {
-    color: black;
-}
-
-@media screen and (max-width: 768px) {
-    .modal-content {
-        width: 90%;
-        max-height: 60vh;
-    }
-
-    #signatureCanvas {
-        height: 200px;
-    }
-}
 
 
-.month-tabs button.active-tab {
-    background: #007bff;
-    color: white;
-    border-color: #0056b3;
-}
 
-.month-tabs button {
-    margin-right: 8px;
-    padding: 8px 12px;
-    cursor: pointer;
-    border: 1px solid #888;
-    background: white;
-}
-
-table.schedule-table,
+/* completed styles */
 table.completed-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
 }
 
-.schedule-table th,
 .completed-table th {
     background-color: #f4f4f4;
 }
 
-.schedule-table td,
 .completed-table td {
     padding: 10px;
     border: 2px solid #0c2340;
@@ -345,16 +356,179 @@ table.completed-table {
     background-color: #f0f0f0;
 }
 
-.month-tabs button.active {
+
+
+#deliveriesContainer {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.date-group-header {
+    font-size: 1.2em;
     font-weight: bold;
-    background-color: #ddd;
+    background-color: #eaeaea;
+    text-align: center;
+    padding: 10px;
 }
 
-#deleteEntryBtn {
-    background-color: #dc3545;
-    color: white !important;
+
+/* schedule table */
+
+.schedule-table .label {
+    display: none;
 }
 
-#deleteEntryBtn:hover {
-    background-color: #c82333;
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.schedule-table th,
+.schedule-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.schedule-table th {
+    background-color: #f4f4f4;
+}
+
+.schedule-table tr {
+    border-top: 5px solid black;
+}
+
+.schedule-table tr:first-child {
+    border-top: none;
+}
+
+
+
+
+@media screen and (max-width: 768px) {
+    .modal-content {
+        width: 90%;
+        max-height: 100%;
+    }
+
+    #signatureCanvas {
+        height: 200px;
+    }
+
+    .fullform {
+        padding: 1rem;
+        margin: 1rem auto;
+    }
+
+    .name1 .form-group {
+        flex: 1;
+        min-width: 100px;
+    }
+
+    .scheduleButton {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    button {
+        width: auto;
+        padding: 1rem;
+    }
+
+    .tdclass .loadBtn,
+    .tdclass .editBtn {
+        padding: 20px;
+    }
+
+    .schedule-table th {
+        display: none;
+    }
+
+    .schedule-table .label {
+        display: block;
+        font-weight: 500;
+    }
+
+    .schedule-table td {
+        display: flex;
+        width: 100%;
+        text-align: left;
+        position: relative;
+        border: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .schedule-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        font-weight: bold;
+        text-transform: uppercase;
+        padding: 10px;
+    }
+
+    .schedule-table td .tdclass {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .schedule-table td .tdclass button {
+        margin: 0;
+        margin-bottom: 5px;
+        width: auto;
+            margin-right: 5px;
+    }
+
+    .tdclass button {
+        width: 100%;
+    }
+    .schedule-table td {
+        display: table-cell;
+    }
+
+    .schedule-table td::before {
+        content: none;
+    }
+
+    .schedule-table td .tdclass {
+        display: inline-block;
+    }
+
+
+    .schedule-table tr {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .schedule-table td {
+        display: flex;
+        gap: 20px;
+    }
+
+    .date-group-header {
+        text-align: left;
+        width: 100%;
+        border: none;
+    }
+
+    #rxModalTitle,
+    #editModalTitle {
+        margin-top: 30px;
+    }
+
+    #editModalTitle {
+        margin-bottom: 30px;
+    }
+
 }
