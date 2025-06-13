@@ -413,12 +413,12 @@ table.completed-table {
 
 @media screen and (max-width: 768px) {
     .modal-content {
-        width: 90%;
+        width: 100%;
         max-height: 100%;
     }
 
     #signatureCanvas {
-        height: 200px;
+        height: 400px;
     }
 
     .fullform {
@@ -432,7 +432,7 @@ table.completed-table {
     }
 
     .scheduleButton {
-        flex-direction: column;
+        flex-direction: row;
         justify-content: center;
         align-items: center;
     }
@@ -442,7 +442,7 @@ table.completed-table {
     }
 
     button {
-        width: auto;
+        /* width: auto; */
         padding: 1rem;
     }
 
