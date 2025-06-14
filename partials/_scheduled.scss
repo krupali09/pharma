@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+body.container {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f2f6fa;
+    margin: 0;
+    padding: 20px;
+    color: #1e1e1e;
+    -webkit-font-smoothing: antialiased;
+}
+
+// Headings
+h1 {
+    text-align: center;
+    color: #1e3a5f;
+    margin-bottom: 20px;
+}
+
+// Message display
+#message {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+// Schedule button group
+.scheduleButton {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 25px 0;
+
+    button {
+        padding: 10px 20px;
+        font-size: 15px;
+        background-color: #1e3a5f;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: #2a4f7c; // restored hover from index
+        }
+    }
+}
+
+// Table
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    font-size: 15px;
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #1e3a5f;
+        color: white;
+        font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+        background-color: #edf3f9;
+    }
+
+    tr:hover {
+        background-color: #e0eaf5;
+    }
+
+    .date-group-header {
+        background-color: #295d8d;
+        color: white;
+        font-weight: 600;
+        text-align: center;
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .label {
+        font-weight: bold;
+        color: #2a4a6a;
+    }
+
+    img {
+        border-radius: 4px;
+        border: 1px solid #aaa;
+        max-width: 100px;
+    }
+
+    td span {
+        display: none;
+    }
+
+    .tdclass button {
+        margin: 5px 2px;
+        padding: 6px 12px;
+        font-size: 14px;
+        border: none;
+        background-color: #1e3a5f;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: #2a4f7c; // restored hover
+        }
+
+        &:disabled {
+            background-color: #999;
+            cursor: not-allowed;
+        }
+    }
+}
+
+// Modals
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0, 0, 0, 0.65);
+    justify-content: center;
+    align-items: center;
+
+    &.fullscreen {
+        .modal-content {
+            width: 100%;
+            height: 100%;
+            max-width: none;
+            max-height: none;
+            border-radius: 0;
+            overflow-y: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    .modal-content {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        width: 95%;
+        max-width: 1000px;
+        max-height: 95vh;
+        overflow-y: auto;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+
+        @media (min-width: 768px) {
+            padding: 10px;
+        }
+    }
+
+    .close {
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        color: #666;
+        cursor: pointer;
+
+        &:hover {
+            color: #000;
+        }
+    }
+}
+
+// Signature canvas
+#signatureCanvas {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    width: 100%;
+    height: 300px;
+    margin-top: 20px;
+    touch-action: none;
+
+    @media (min-width: 768px) {
+        height: 200px;
+    }
+
+    td span {
+        display: block;
+    }
+}
+
+// Form inputs
+input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 10px;
+    background-color: white;
+    color: #333;
+
+    &:focus {
+        border-color: #1e3a5f;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.2);
+    }
+}
+
+// Form buttons
+form button[type="submit"],
+form button[type="button"] {
+    padding: 10px 18px;
+    background-color: #1e3a5f;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    margin: 10px 6px 0 0;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #2a4f7c; // restored hover
+    }
+}
