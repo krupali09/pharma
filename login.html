@@ -5,8 +5,14 @@
     <meta charset="UTF-8" />
     <title>Login</title>
     <link rel="icon" href="medical-05_icon-icons.com_73942.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="css/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
+        :root {
+            --primary: #d32f2f;
+            --primary-dark: #b71c1c;
+            --primary-light: #f8d7da;
+        }
+
         body {
             margin: 0;
             font-family: 'Segoe UI', Verdana, sans-serif;
@@ -17,64 +23,67 @@
             justify-content: center;
             height: 100vh;
             overflow: hidden;
+            padding: 20px;
         }
 
         h1 {
-            margin-bottom: 25px;
-            color: #d32f2f;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-size: 2rem;
+            text-align: center;
         }
 
         .loginContainer {
             background: #fff;
-            padding: 40px 45px 50px;
-            border-radius: 14px;
-            box-shadow: 0 8px 20px rgba(211, 47, 47, 0.12), 0 6px 12px rgba(211, 47, 47, 0.08);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(211, 47, 47, 0.15);
+            width: 100%;
+            max-width: 400px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 340px;
-            z-index: 10;
         }
 
         .login input {
             width: 100%;
-            margin-bottom: 16px;
-            padding: 12px;
-            border: 2px solid #d32f2f;
-            border-radius: 8px;
-            font-size: 15px;
+            margin-bottom: 18px;
+            padding: 14px;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            font-size: 1rem;
         }
 
         .login input:focus {
-            border-color: #b71c1c;
-            box-shadow: 0 0 6px #b71c1caa;
+            border-color: var(--primary-dark);
+            box-shadow: 0 0 8px var(--primary-light);
         }
 
         .login button {
-            margin-top: 30px;
+            margin-top: 24px;
             width: 100%;
-            padding: 12px 0;
-            font-size: 17px;
+            padding: 14px;
+            font-size: 1.05rem;
             font-weight: 600;
             border: none;
-            border-radius: 8px;
-            background: linear-gradient(90deg, #d32f2f, #b71c1c);
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
             color: #fff;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
         }
 
         .login button:hover {
-            background: linear-gradient(90deg, #b71c1c, #880e4f);
+            background: linear-gradient(90deg, var(--primary-dark), #880e4f);
         }
 
         .error {
-            color: #e53935;
-            margin-top: 14px;
+            color: var(--primary);
+            margin-top: 16px;
             font-weight: bold;
-            font-size: 14px;
-            height: 18px;
+            font-size: 0.95rem;
             text-align: center;
+            min-height: 20px;
         }
 
         /* EKG overlay */
@@ -100,7 +109,7 @@
         }
 
         .ekg-path {
-            stroke: #d32f2f;
+            stroke: var(--primary);
             stroke-width: 3;
             fill: none;
             stroke-dasharray: 1000;
@@ -124,6 +133,22 @@
         .hidden {
             display: none;
         }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .loginContainer {
+                padding: 24px 20px;
+            }
+
+            .login input,
+            .login button {
+                font-size: 1rem;
+                padding: 12px;
+            }
+        }
     </style>
 </head>
 
@@ -138,12 +163,12 @@
         </div>
     </div>
 
-    <h1>Login</h1>
+    <h1>Welcome Back</h1>
     <div class="loginContainer">
         <div class="login">
             <input type="text" id="username" placeholder="Username" autocomplete="off" />
             <input type="password" id="password" placeholder="Password" autocomplete="off" />
-            <button id="loginBtn">Login</button>
+            <button id="loginBtn">Access Dashboard</button>
         </div>
     </div>
     <div class="error" id="errorMsg"></div>
