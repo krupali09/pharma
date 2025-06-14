@@ -409,7 +409,17 @@ table.completed-table {
 }
 
 
+@media screen and (orientation: landscape) and (max-width: 768px) {
+    #signatureCanvas {
+        height: 50vh;
+        max-height: 400px;
+    }
 
+    .modal-content {
+        max-height: 95vh;
+        overflow-y: auto;
+    }
+}
 
 @media screen and (max-width: 768px) {
     #rxModal {
