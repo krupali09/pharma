@@ -231,3 +231,61 @@ form button[type="button"] {
         background-color: #2a4f7c; // restored hover
     }
 }
+
+@media (max-width: 768px) {
+    .schedule-table {
+        display: block;
+        width: 100%;
+
+        thead {
+            display: none; // hide table header on small screens
+        }
+
+        tbody tr:first-child {
+            display: none; // hide first row of tbody on mobile
+        }
+
+        td span {
+            display: block;
+        }
+
+        tbody,
+        tr {
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        tr {
+            border: none;
+            padding: 0;
+            box-shadow: none;
+        }
+
+        td {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 10px;
+            border: none;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            // &::before {
+            //     content: attr(data-label);
+            //     font-weight: 600;
+            //     color: #2a4a6a;
+            //     flex-basis: 45%;
+            //     text-align: left;
+            // }
+        }
+    }
+}

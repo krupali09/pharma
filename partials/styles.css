@@ -516,4 +516,53 @@ form button[type=button] {
 form button[type=submit]:hover,
 form button[type=button]:hover {
   background-color: #2a4f7c;
+}
+
+@media (max-width: 768px) {
+  .schedule-table {
+    display: block;
+    width: 100%;
+  }
+  .schedule-table thead {
+    display: none;
+  }
+  .schedule-table tbody tr:first-child {
+    display: none;
+  }
+  .schedule-table td span {
+    display: block;
+  }
+  .schedule-table tbody,
+  .schedule-table tr {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    background: #fff;
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  .schedule-table tr {
+    border: none;
+    padding: 0;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+  .schedule-table td {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    padding: 8px 10px;
+    border: none;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+  }
+  .schedule-table td:last-child {
+    border-bottom: none;
+  }
 }/*# sourceMappingURL=styles.css.map */
