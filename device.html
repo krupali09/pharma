@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>Prevent Margin on Orientation Change</title>
+    <style>
+        /* Reset margin and padding */
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            overflow-x: hidden;
+            /* Prevent horizontal scroll */
+            box-sizing: border-box;
+        }
+
+        /* Make sure all elements include padding/border in width */
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit;
+        }
+
+        /* Example container */
+        .container {
+            width: 100%;
+            /* avoid 100vw with padding */
+            padding: 16px;
+            background-color: #f0f0f0;
+        }
+
+        /* Responsive images */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Buttons example */
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Demo Page</h1>
+        <p>This page won't add margin or horizontal scroll on mobile orientation change.</p>
+        <img src="https://via.placeholder.com/600x300" alt="Example Image" />
+        <button disabled>Disabled Button</button>
+        <button>Active Button</button>
+    </div>
+
+</body>
+
+</html>
