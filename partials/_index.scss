@@ -38,25 +38,24 @@ body.indexpage::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(12, 35, 64, 0.5);
-    /* navy blue tinted overlay */
+    // background: rgba(12, 35, 64, 0.5);
+    background: rgba(200, 150, 200, 0.3);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     z-index: 0;
 }
 
-/* Ensure form content above overlay */
+/* Ensure form content is above overlay */
 .fullform {
     position: relative;
     z-index: 1;
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    background: white;
+    color: #0c2340;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.17);
     border-radius: 16px;
     padding: 30px 20px;
     width: 100%;
     max-width: 700px;
-    color: #e0e6f0;
-    /* lighter but soft color for better contrast */
     box-sizing: border-box;
 }
 
@@ -65,8 +64,7 @@ body.indexpage::before {
     text-align: center;
     margin-bottom: 25px;
     font-weight: 500;
-    color: #cbd6f0;
-    /* soft pale blue */
+    color: #0c2340;
 }
 
 /* Form groups */
@@ -78,7 +76,7 @@ body.indexpage::before {
     display: block;
     margin-bottom: 6px;
     font-weight: 400;
-    color: #cbd6f0;
+    color: #0c2340;
 }
 
 /* Inputs, selects and textareas */
@@ -88,39 +86,34 @@ textarea {
     width: 100%;
     padding: 10px;
     border-radius: 8px;
-    border: 1.5px solid rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.15);
-    color: #f0f4ff;
+    border: 1.5px solid #b8c6d9;
+    background: #f9fbfd;
+    color: #0c2340;
     font-size: 1rem;
     outline: none;
     transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
-/* On focus, highlight border */
+/* On focus */
 input:focus,
 textarea:focus {
     border-color: #58c7ff;
-    /* bright cyan */
-    background: rgba(255, 255, 255, 0.3);
-    color: #000;
+    background: #ffffff;
+    color: #0c2340;
 }
 
-/* Placeholder text subtle */
+/* Placeholder */
 input::placeholder,
 textarea::placeholder {
-    color: rgba(255, 255, 255, 0.7);
+    color: #999;
 }
 
-/* Select default text color */
+/* Select styling */
 select {
-    color: #f0f4ff;
-    /* white-ish */
+    color: #0c2340;
     appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
     background-image:
         linear-gradient(45deg, transparent 50%, #0a1b2f 50%),
-        /* darker arrow */
         linear-gradient(135deg, #0a1b2f 50%, transparent 50%);
     background-position:
         calc(100% - 20px) calc(1em + 2px),
@@ -129,33 +122,27 @@ select {
     background-repeat: no-repeat;
     padding-right: 35px;
     cursor: pointer;
+    background-color: #f9fbfd;
 }
 
-/* Dropdown selected text: black on focus */
 select:focus {
-    color: black;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: #ffffff;
     border-color: #1e90ff;
+    color: #0c2340;
 }
 
-/* Dropdown options styling: no hover effect */
 select option {
-    background-color: #0c2340;
-    color: #e0e6f0;
+    background-color: #ffffff;
+    color: #0c2340;
 }
 
-select option:hover {
-    background-color: transparent !important;
-    color: inherit !important;
-}
-
-/* Textareas fix for readability */
+/* Textareas */
 textarea {
     resize: vertical;
     min-height: 60px;
 }
 
-/* Flex containers */
+/* Flex form layout */
 .name1 {
     display: flex;
     flex-direction: column;
@@ -172,7 +159,7 @@ textarea {
     }
 }
 
-/* Buttons consistent style with medicine vibe */
+/* Button Row */
 .button-row {
     display: flex;
     flex-wrap: wrap;
@@ -181,9 +168,10 @@ textarea {
     margin-top: 20px;
 }
 
+/* Buttons */
 button {
     background-color: #0c2340;
-    color: #e0e6f0;
+    color: #ffffff;
     border: 2px solid #58c7ff;
     padding: 12px 24px;
     border-radius: 12px;
@@ -196,21 +184,17 @@ button {
     z-index: 0;
 }
 
-/* Button hover: darker blue background, keep white text */
 button:hover {
     background-color: #1a3a70;
-    /* darker blue */
     border-color: #0a2a5e;
     box-shadow:
         0 0 10px 4px rgba(26, 58, 112, 0.8),
         0 0 20px 6px rgba(255, 255, 255, 0.4);
     transform: scale(1.07);
     z-index: 1;
-    color: #e0e6f0;
-    /* keep text light */
+    color: #ffffff;
 }
 
-/* Pulse glow effect on button hover */
 button:hover::before {
     content: '';
     position: absolute;
@@ -237,9 +221,9 @@ button:hover::before {
     }
 }
 
-/* Message text styling */
+/* Message Styling */
 #message {
     text-align: center;
     margin-top: 20px;
-    color: #a8b6d9;
+    color: #0c2340;
 }
