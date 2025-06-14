@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
+
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Body with background image */
+body.indexpage {
+    position: relative;
+    min-height: 100vh;
+    background: url('../img/meds.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    overflow-x: hidden;
+}
+
+/* Fullscreen glass overlay on the background */
+body.indexpage::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(12, 35, 64, 0.5);
+    /* navy blue tinted overlay */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 0;
+}
+
+/* Ensure form content above overlay */
+.fullform {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border-radius: 16px;
+    padding: 30px;
+    width: 100%;
+    max-width: 700px;
+    color: #e0e6f0;
+    /* lighter but soft color for better contrast */
+}
+
+/* Headings */
+.fullform h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 500;
+    color: #cbd6f0;
+    /* soft pale blue */
+}
+
+/* Form groups */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.texty {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 400;
+    color: #cbd6f0;
+}
+
+/* Inputs, selects and textareas */
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+    color: #f0f4ff;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+/* On focus, highlight border */
+input:focus,
+textarea:focus {
+    border-color: #58c7ff;
+    /* bright cyan */
+    background: rgba(255, 255, 255, 0.3);
+    color: #000;
+}
+
+/* Placeholder text subtle */
+input::placeholder,
+textarea::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Select default text color */
+select {
+    color: #f0f4ff;
+    /* white-ish */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image:
+        linear-gradient(45deg, transparent 50%, #0a1b2f 50%),
+        /* darker arrow */
+        linear-gradient(135deg, #0a1b2f 50%, transparent 50%);
+    background-position:
+        calc(100% - 20px) calc(1em + 2px),
+        calc(100% - 15px) calc(1em + 2px);
+    background-size: 5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 35px;
+    cursor: pointer;
+}
+
+/* Dropdown selected text: black on focus */
+select:focus {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-color: #1e90ff;
+}
+
+/* Dropdown options styling: no hover effect */
+select option {
+    // background-color: #0c2340;
+    color: black;
+}
+
+select option:hover {
+    background-color: transparent !important;
+    color: inherit !important;
+}
+
+/* Textareas fix for readability */
+textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+/* Flex containers */
+.name1 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+@media(min-width: 600px) {
+    .name1 {
+        flex-direction: row;
+    }
+
+    .name1 .form-group {
+        flex: 1;
+    }
+}
+
+/* Buttons consistent style with medicine vibe */
+.button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+button {
+    background-color: #0c2340;
+    color: #e0e6f0;
+    border: 2px solid #58c7ff;
+    padding: 12px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+}
+
+/* Button hover: darker blue background, keep white text */
+button:hover {
+    background-color: #1a3a70;
+    /* darker blue */
+    border-color: #0a2a5e;
+    box-shadow:
+        0 0 10px 4px rgba(26, 58, 112, 0.8),
+        0 0 20px 6px rgba(255, 255, 255, 0.4);
+    transform: scale(1.07);
+    z-index: 1;
+    color: #e0e6f0;
+    /* keep text light */
+}
+
+/* Pulse glow effect on button hover */
+button:hover::before {
+    content: '';
+    position: absolute;
+    top: -25%;
+    left: -25%;
+    width: 150%;
+    height: 150%;
+    background: radial-gradient(circle, rgba(26, 58, 112, 0.7) 0%, transparent 70%);
+    animation: pulseGlow 1.5s infinite alternate;
+    border-radius: 12px;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes pulseGlow {
+    from {
+        transform: scale(0.9);
+        opacity: 0.6;
+    }
+
+    to {
+        transform: scale(1.1);
+        opacity: 0.9;
+    }
+}
+
+/* Message text styling */
+#message {
+    text-align: center;
+    margin-top: 20px;
+    color: #a8b6d9;
+}
