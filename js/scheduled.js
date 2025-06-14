@@ -2,6 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebas
 import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 
 window.addEventListener("DOMContentLoaded", () => {
+    // Firebase config + init
     const firebaseConfig = {
         apiKey: "AIzaSyDtyJOEYKBfOHfIVuJVlZcONg4kn56EK7E",
         authDomain: "deliveryweb-9b674.firebaseapp.com",
@@ -28,7 +29,27 @@ window.addEventListener("DOMContentLoaded", () => {
     const rxForm = document.getElementById("rxForm");
     const entryKeyInput = document.getElementById("entryKeyInput");
     const canvas = document.getElementById("signatureCanvas");
-    const signaturePad = new SignaturePad(canvas);
+
+    // Resize canvas to be crisp on all devices
+    function resizeCanvas() {
+        const ratio = Math.max(window.devicePixelRatio || 1, 1);
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = canvas.offsetHeight * ratio;
+        canvas.getContext("2d").scale(ratio, ratio);
+    }
+    window.addEventListener("resize", () => {
+        resizeCanvas();
+        signaturePad.clear(); // clear signature on resize
+    });
+    resizeCanvas();
+
+    // Initialize SignaturePad with options (clear background transparent)
+    const signaturePad = new SignaturePad(canvas, {
+        backgroundColor: 'rgba(255, 255, 255, 0)',
+        penColor: 'black',
+        minWidth: 1,
+        maxWidth: 2.5,
+    });
 
     // Reschedule modal elements
     const editModal = document.getElementById("editModal");
@@ -69,15 +90,30 @@ window.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // Listen for realtime delivery updates
     onValue(deliveriesRef, (snapshot) => {
         const data = snapshot.val() || {};
         renderGroupedTable(data);
     });
 
+    // Format date string to readable
+    function formatDate(dateStr) {
+        // Date parsed in Toronto timezone
+        const d = new Date(dateStr + "T00:00:00-05:00");
+        return d.toLocaleDateString("en-US", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+            timeZone: "America/Toronto",
+        });
+    }
+
+    // Render table grouped by date and filtered/sorted
     function renderGroupedTable(data) {
+        // Filter out deleted or signed entries
         const entries = Object.entries(data)
             .map(([key, d]) => ({ key, ...d }))
-            .filter((e) => !e.deleted && !e.signature)  // Remove signed entries
+            .filter(e => !e.deleted && !e.signature)
             .sort((a, b) => new Date(a.date) - new Date(b.date));
 
         container.innerHTML = "";
@@ -89,48 +125,42 @@ window.addEventListener("DOMContentLoaded", () => {
         const table = document.createElement("table");
         table.className = "schedule-table";
 
+        // Header row
         const headerRow = table.insertRow();
         const headers = ["Name", "Phone", "Address", "RX Details", "Driver", "Signature", "Actions"];
-        headers.forEach((headerText) => {
+        headers.forEach(headerText => {
             const th = document.createElement("th");
             th.textContent = headerText;
             headerRow.appendChild(th);
         });
 
+        // Group entries by formatted date string
         const groupedEntries = {};
-
-        // Group entries by date
-        entries.forEach((entry) => {
-            const entryDate = new Date(entry.date);
+        entries.forEach(entry => {
             const formattedDate = formatDate(entry.date);
-
-            // Group by the formatted date
-            if (!groupedEntries[formattedDate]) {
-                groupedEntries[formattedDate] = [];
-            }
-
-            groupedEntries[formattedDate].push({ ...entry, formattedDate });
+            if (!groupedEntries[formattedDate]) groupedEntries[formattedDate] = [];
+            groupedEntries[formattedDate].push(entry);
         });
 
-        // Sort the days by date
+        // Sort groups by date ascending
         const sortedDates = Object.keys(groupedEntries).sort((a, b) => new Date(a) - new Date(b));
 
-        // Render each group of entries
-        sortedDates.forEach((date) => {
+        // Render each group with header and rows
+        sortedDates.forEach(date => {
             const groupHeaderRow = table.insertRow();
             const cell = groupHeaderRow.insertCell();
-            cell.colSpan = 7;
+            cell.colSpan = headers.length;
             cell.className = "date-group-header";
-            cell.textContent = `${date}`;
+            cell.textContent = date;
 
-            groupedEntries[date].forEach((entry) => {
+            groupedEntries[date].forEach(entry => {
                 const row = table.insertRow();
                 row.innerHTML = `
-                    <td>  <span class="label">Name: </span> ${entry.name}</td>
-                    <td><span class="label">Phone: </span> ${entry.phone}</td>
-                    <td><span class="label">Location: </span> ${entry.address}</td>
-                    <td><span class="label">RxDetails: </span> ${entry.rxDetails || "-"}</td>
-                    <td><span class="label">Driver: </span> ${entry.driver || "-"}</td>
+                    <td><span class="label">Name: </span>${entry.name}</td>
+                    <td><span class="label">Phone: </span>${entry.phone}</td>
+                    <td><span class="label">Location: </span>${entry.address}</td>
+                    <td><span class="label">RxDetails: </span>${entry.rxDetails || "-"}</td>
+                    <td><span class="label">Driver: </span>${entry.driver || "-"}</td>
                     <td><span class="label">Sign: </span>${entry.signature ? `<img src="${entry.signature}" width="100">` : "-"}</td>
                     <td class="tdclass">
                         <button data-key="${entry.key}" class="loadBtn" ${entry.signature ? "disabled" : ""}>Sign</button>
@@ -141,22 +171,14 @@ window.addEventListener("DOMContentLoaded", () => {
         });
 
         container.appendChild(table);
+
         attachRowHandlers(data);
     }
 
-    function formatDate(dateStr) {
-        const d = new Date(dateStr + "T00:00:00-05:00");
-        return d.toLocaleDateString("en-US", {
-            day: "2-digit",
-            month: "long",
-            year: "numeric",
-            timeZone: "America/Toronto",
-        });
-    }
-
+    // Attach click handlers for buttons after rendering
     function attachRowHandlers(data) {
-        // Inside attachRowHandlers -> loadBtn
-        container.querySelectorAll(".loadBtn").forEach((btn) =>
+        // Sign button opens signature modal
+        container.querySelectorAll(".loadBtn").forEach(btn => {
             btn.addEventListener("click", () => {
                 const key = btn.dataset.key;
                 const entry = data[key];
@@ -164,37 +186,46 @@ window.addEventListener("DOMContentLoaded", () => {
                 entryKeyInput.value = key;
                 signaturePad.clear();
 
+                // If signature exists (unlikely here due to filtering), draw it
                 if (entry.signature) {
                     const image = new Image();
                     image.onload = () => {
+                        resizeCanvas(); // ensure canvas is resized before drawing
                         canvas.getContext("2d").drawImage(image, 0, 0, canvas.width, canvas.height);
                     };
                     image.src = entry.signature;
                 }
 
                 document.getElementById("rxModalTitle").textContent = `Received and Signed`;
-
                 openModal(rxModal);
-            })
-        );
+            });
+        });
 
-        // Inside rxForm submit
-        rxForm?.addEventListener("submit", (e) => {
+        // Signature form submit: save signature to Firebase
+        rxForm?.addEventListener("submit", e => {
             e.preventDefault();
             const key = entryKeyInput.value;
+
+            if (signaturePad.isEmpty()) {
+                showMessage("Please provide a signature before saving.", "red");
+                return;
+            }
+
             const updated = {
-                signature: signaturePad.isEmpty() ? "" : signaturePad.toDataURL(),
+                signature: signaturePad.toDataURL(),
             };
+
             update(ref(db, "deliveries/" + key), updated)
                 .then(() => {
                     showMessage("Signature saved", "green");
                     closeModal(rxModal);
                     signaturePad.clear();
                 })
-                .catch((err) => showMessage(err.message, "red"));
+                .catch(err => showMessage(err.message, "red"));
         });
 
-        container.querySelectorAll(".editBtn").forEach((btn) =>
+        // Reschedule button opens reschedule modal
+        container.querySelectorAll(".editBtn").forEach(btn => {
             btn.addEventListener("click", () => {
                 const key = btn.dataset.key;
                 const entry = data[key];
@@ -204,13 +235,13 @@ window.addEventListener("DOMContentLoaded", () => {
                 if (editModalTitle) {
                     editModalTitle.textContent = `Reschedule Delivery for ${entry.name || ""}`;
                 }
-
                 openModal(editModal);
-            })
-        );
+            });
+        });
     }
 
-    editForm?.addEventListener("submit", (e) => {
+    // Edit form submit: update delivery date
+    editForm?.addEventListener("submit", e => {
         e.preventDefault();
         const key = editKeyInput.value;
         const newDate = editDateInput.value;
@@ -225,11 +256,15 @@ window.addEventListener("DOMContentLoaded", () => {
                 showMessage("Delivery rescheduled successfully.", "green");
                 closeModal(editModal);
             })
-            .catch((err) => showMessage(err.message, "red"));
+            .catch(err => showMessage(err.message, "red"));
     });
 
+    // Show feedback messages
     function showMessage(txt, col) {
         messageEl.textContent = txt;
         messageEl.style.color = col;
+        setTimeout(() => {
+            messageEl.textContent = "";
+        }, 3000);
     }
 });
