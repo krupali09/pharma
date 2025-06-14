@@ -409,7 +409,7 @@ table.completed-table {
 }
 
 
-@media screen and (orientation: landscape) and (max-width: 768px) {
+/* @media screen and (orientation: landscape) and (max-width: 768px) {
     #signatureCanvas {
         height: 50vh;
         max-height: 400px;
@@ -419,31 +419,34 @@ table.completed-table {
         max-height: 95vh;
         overflow-y: auto;
     }
-}
+} */
 
 @media screen and (max-width: 768px) {
     #rxModal {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-    
-        .modal-content {
-            width: 100%;
-            max-height: 90vh;
-            padding: 10px;
-        }
-    
-        #signatureCanvas {
-            height: 40vh;
-            /* dynamic height based on screen */
-            max-height: 300px;
-        }
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        padding: 0;
+    }
 
-        .scheduleButton {
-            padding-top: 0px;
-        }
+    .modal-content {
+        width: 100%;
+        max-height: 100vh;
+        overflow: hidden;
+        /* padding: 10px; */
+    }
+
+    #signatureCanvas {
+        height: 40vh;
+        /* dynamic height based on screen */
+        max-height: 300px;
+    }
+
+    .scheduleButton {
+        padding-top: 0px;
+    }
 
     .fullform {
         padding: 1rem;
@@ -511,12 +514,13 @@ table.completed-table {
         margin: 0;
         margin-bottom: 5px;
         width: auto;
-            margin-right: 5px;
+        margin-right: 5px;
     }
 
     .tdclass button {
         width: 100%;
     }
+
     .schedule-table td {
         display: table-cell;
     }
