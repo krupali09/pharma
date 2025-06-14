@@ -56,6 +56,13 @@
     </div>
 
     <script type="module" src="js/scheduled.js"></script>
+
+    <script>
+        if (!sessionStorage.getItem('loggedInUser')) {
+            sessionStorage.setItem('redirectAfterLogin', window.location.pathname.split('/').pop());
+            window.location.href = 'login.html';
+        }
+    </script>
 </body>
 
 </html>

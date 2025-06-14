@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+    <link rel="icon" href="medical-05_icon-icons.com_73942.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Verdana, sans-serif;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+            color: #d32f2f;
+        }
+
+        .loginContainer {
+            background: #fff;
+            padding: 40px 45px 50px;
+            border-radius: 14px;
+            box-shadow: 0 8px 20px rgba(211, 47, 47, 0.12), 0 6px 12px rgba(211, 47, 47, 0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 340px;
+            z-index: 10;
+        }
+
+        .login input {
+            width: 100%;
+            margin-bottom: 16px;
+            padding: 12px;
+            border: 2px solid #d32f2f;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .login input:focus {
+            border-color: #b71c1c;
+            box-shadow: 0 0 6px #b71c1caa;
+        }
+
+        .login button {
+            margin-top: 30px;
+            width: 100%;
+            padding: 12px 0;
+            font-size: 17px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #d32f2f, #b71c1c);
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+        }
+
+        .login button:hover {
+            background: linear-gradient(90deg, #b71c1c, #880e4f);
+        }
+
+        .error {
+            color: #e53935;
+            margin-top: 14px;
+            font-weight: bold;
+            font-size: 14px;
+            height: 18px;
+            text-align: center;
+        }
+
+        /* EKG overlay */
+        .ekg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #ffffff;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeOut 2s 2s forwards;
+        }
+
+        .ekg-line {
+            width: 100vw;
+            height: 120px;
+            background: transparent;
+            position: relative;
+        }
+
+        .ekg-path {
+            stroke: #d32f2f;
+            stroke-width: 3;
+            fill: none;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: ekgDraw 2s ease-out forwards;
+        }
+
+        @keyframes ekgDraw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- EKG overlay -->
+    <div class="ekg-overlay" id="ekgOverlay">
+        <div class="ekg-line">
+            <svg viewBox="0 0 1000 120" preserveAspectRatio="none" width="100%" height="100%">
+                <path class="ekg-path"
+                    d="M 0 60 L 100 60 L 130 20 L 140 100 L 150 60 L 300 60 L 330 30 L 340 90 L 350 60 L 500 60 L 530 20 L 540 100 L 550 60 L 700 60 L 730 30 L 740 90 L 750 60 L 1000 60" />
+            </svg>
+        </div>
+    </div>
+
+    <h1>Login</h1>
+    <div class="loginContainer">
+        <div class="login">
+            <input type="text" id="username" placeholder="Username" autocomplete="off" />
+            <input type="password" id="password" placeholder="Password" autocomplete="off" />
+            <button id="loginBtn">Login</button>
+        </div>
+    </div>
+    <div class="error" id="errorMsg"></div>
+
+    <script>
+        const credentials = { 'Pharc@re': 'Del!veries' };
+        const loginBtn = document.getElementById('loginBtn');
+        const errorMsg = document.getElementById('errorMsg');
+        const ekgOverlay = document.getElementById('ekgOverlay');
+
+        function playEkgThenRedirect(callback) {
+            ekgOverlay.classList.remove("hidden");
+            ekgOverlay.style.animation = "none";
+            void ekgOverlay.offsetWidth;
+            ekgOverlay.style.animation = "fadeOut 2s 2s forwards";
+
+            const path = ekgOverlay.querySelector('.ekg-path');
+            path.style.animation = "none";
+            void path.offsetWidth;
+            path.style.strokeDasharray = path.getTotalLength();
+            path.style.strokeDashoffset = path.getTotalLength();
+            path.style.animation = "ekgDraw 2s ease-out forwards";
+
+            setTimeout(() => callback(), 2000);
+        }
+
+        function login() {
+            const u = document.getElementById('username').value.trim();
+            const p = document.getElementById('password').value;
+            if (credentials[u] === p) {
+                errorMsg.textContent = '';
+                loginBtn.disabled = true;
+                playEkgThenRedirect(() => {
+                    sessionStorage.setItem('loggedInUser', u);
+                    const redirect = sessionStorage.getItem('redirectAfterLogin') || 'index.html';
+                    sessionStorage.removeItem('redirectAfterLogin');
+                    window.location.href = redirect;
+                });
+            } else {
+                errorMsg.textContent = 'Invalid username or password';
+            }
+        }
+
+        loginBtn.addEventListener('click', login);
+        document.getElementById('username').addEventListener('keypress', e => e.key === 'Enter' && login());
+        document.getElementById('password').addEventListener('keypress', e => e.key === 'Enter' && login());
+
+        // On page load EKG
+        window.addEventListener('load', () => {
+            const path = document.querySelector('.ekg-path');
+            path.style.strokeDasharray = path.getTotalLength();
+            path.style.strokeDashoffset = path.getTotalLength();
+        });
+    </script>
+</body>
+
+</html>

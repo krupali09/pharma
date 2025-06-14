@@ -29,6 +29,13 @@
    
 
     <script type="module" src="js/completed.js"></script>
+
+    <script>
+        if (!sessionStorage.getItem('loggedInUser')) {
+            sessionStorage.setItem('redirectAfterLogin', window.location.pathname.split('/').pop());
+            window.location.href = 'login.html';
+        }
+    </script>
 </body>
 
 </html>
