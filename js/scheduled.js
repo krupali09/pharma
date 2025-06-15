@@ -2,7 +2,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebas
 import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 
 window.addEventListener("DOMContentLoaded", () => {
-    // Firebase config + init
     const firebaseConfig = {
         apiKey: "AIzaSyDtyJOEYKBfOHfIVuJVlZcONg4kn56EK7E",
         authDomain: "deliveryweb-9b674.firebaseapp.com",
@@ -22,7 +21,6 @@ window.addEventListener("DOMContentLoaded", () => {
     const goBackBtn = document.getElementById("goBackBtn");
     const goCompletedBtn = document.getElementById("goCompletedBtn");
 
-    // Signature modal elements
     const rxModal = document.getElementById("rxModal");
     const closeModalBtn = document.getElementById("closeModalBtn");
     const clearSignatureBtn = document.getElementById("clearSignatureBtn");
@@ -30,28 +28,37 @@ window.addEventListener("DOMContentLoaded", () => {
     const entryKeyInput = document.getElementById("entryKeyInput");
     const canvas = document.getElementById("signatureCanvas");
 
-    // Resize canvas to be crisp on all devices
+    let signaturePad;
+
     function resizeCanvas() {
         const ratio = Math.max(window.devicePixelRatio || 1, 1);
         canvas.width = canvas.offsetWidth * ratio;
         canvas.height = canvas.offsetHeight * ratio;
-        canvas.getContext("2d").scale(ratio, ratio);
+        const ctx = canvas.getContext("2d");
+        ctx.scale(ratio, ratio);
     }
+
+    function initSignaturePad() {
+        resizeCanvas();
+        if (signaturePad) {
+            signaturePad.off();
+        }
+        signaturePad = new SignaturePad(canvas, {
+            backgroundColor: 'rgba(255, 255, 255, 0)',
+            penColor: 'black',
+            minWidth: 1,
+            maxWidth: 2.5,
+        });
+    }
+
     window.addEventListener("resize", () => {
         resizeCanvas();
-        signaturePad.clear(); // clear signature on resize
-    });
-    resizeCanvas();
-
-    // Initialize SignaturePad with options (clear background transparent)
-    const signaturePad = new SignaturePad(canvas, {
-        backgroundColor: 'rgba(255, 255, 255, 0)',
-        penColor: 'black',
-        minWidth: 1,
-        maxWidth: 2.5,
+        signaturePad.clear();
     });
 
-    // Reschedule modal elements
+    initSignaturePad();
+
+    // Modal and button setup
     const editModal = document.getElementById("editModal");
     const editForm = document.getElementById("editForm");
     const editKeyInput = document.getElementById("editKeyInput");
@@ -60,10 +67,15 @@ window.addEventListener("DOMContentLoaded", () => {
     const editModalTitle = document.getElementById("editModalTitle");
     const closeEditModalBtn = document.getElementById("closeEditModalBtn");
 
-    // Helper functions to open/close modal + disable scroll on body
     function openModal(modal) {
         modal.style.display = "flex";
         document.body.style.overflow = "hidden";
+        if (modal === rxModal) {
+            setTimeout(() => {
+                resizeCanvas();
+                signaturePad.clear();
+            }, 100); // ensure canvas is properly resized when modal appears
+        }
     }
 
     function closeModal(modal) {
@@ -73,7 +85,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
     closeModalBtn?.addEventListener("click", () => closeModal(rxModal));
     closeEditModalBtn?.addEventListener("click", () => closeModal(editModal));
-
     goBackBtn?.addEventListener("click", () => (window.location.href = "index.html"));
     goCompletedBtn?.addEventListener("click", () => (window.location.href = "completed.html"));
     clearSignatureBtn?.addEventListener("click", () => signaturePad.clear());
@@ -90,15 +101,12 @@ window.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Listen for realtime delivery updates
     onValue(deliveriesRef, (snapshot) => {
         const data = snapshot.val() || {};
         renderGroupedTable(data);
     });
 
-    // Format date string to readable
     function formatDate(dateStr) {
-        // Date parsed in Toronto timezone
         const d = new Date(dateStr + "T00:00:00-05:00");
         return d.toLocaleDateString("en-US", {
             day: "2-digit",
@@ -108,9 +116,7 @@ window.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Render table grouped by date and filtered/sorted
     function renderGroupedTable(data) {
-        // Filter out deleted or signed entries
         const entries = Object.entries(data)
             .map(([key, d]) => ({ key, ...d }))
             .filter(e => !e.deleted && !e.signature)
@@ -125,7 +131,6 @@ window.addEventListener("DOMContentLoaded", () => {
         const table = document.createElement("table");
         table.className = "schedule-table";
 
-        // Header row
         const headerRow = table.insertRow();
         const headers = ["Name", "Phone", "Address", "RX Details", "Driver", "Signature", "Actions"];
         headers.forEach(headerText => {
@@ -134,7 +139,6 @@ window.addEventListener("DOMContentLoaded", () => {
             headerRow.appendChild(th);
         });
 
-        // Group entries by formatted date string
         const groupedEntries = {};
         entries.forEach(entry => {
             const formattedDate = formatDate(entry.date);
@@ -142,10 +146,8 @@ window.addEventListener("DOMContentLoaded", () => {
             groupedEntries[formattedDate].push(entry);
         });
 
-        // Sort groups by date ascending
         const sortedDates = Object.keys(groupedEntries).sort((a, b) => new Date(a) - new Date(b));
 
-        // Render each group with header and rows
         sortedDates.forEach(date => {
             const groupHeaderRow = table.insertRow();
             const cell = groupHeaderRow.insertCell();
@@ -171,37 +173,31 @@ window.addEventListener("DOMContentLoaded", () => {
         });
 
         container.appendChild(table);
-
         attachRowHandlers(data);
     }
 
-    // Attach click handlers for buttons after rendering
     function attachRowHandlers(data) {
-        // Sign button opens signature modal
         container.querySelectorAll(".loadBtn").forEach(btn => {
             btn.addEventListener("click", () => {
                 const key = btn.dataset.key;
                 const entry = data[key];
-
                 entryKeyInput.value = key;
                 signaturePad.clear();
 
-                // If signature exists (unlikely here due to filtering), draw it
                 if (entry.signature) {
                     const image = new Image();
                     image.onload = () => {
-                        resizeCanvas(); // ensure canvas is resized before drawing
-                        canvas.getContext("2d").drawImage(image, 0, 0, canvas.width, canvas.height);
+                        resizeCanvas();
+                        canvas.getContext("2d").drawImage(image, 0, 0);
                     };
                     image.src = entry.signature;
                 }
 
-                document.getElementById("rxModalTitle").textContent = `Received and Signed`;
+                document.getElementById("rxModalTitle").textContent = `Signed For ${entry.name}`;
                 openModal(rxModal);
             });
         });
 
-        // Signature form submit: save signature to Firebase
         rxForm?.addEventListener("submit", e => {
             e.preventDefault();
             const key = entryKeyInput.value;
@@ -224,12 +220,10 @@ window.addEventListener("DOMContentLoaded", () => {
                 .catch(err => showMessage(err.message, "red"));
         });
 
-        // Reschedule button opens reschedule modal
         container.querySelectorAll(".editBtn").forEach(btn => {
             btn.addEventListener("click", () => {
                 const key = btn.dataset.key;
                 const entry = data[key];
-
                 editKeyInput.value = key;
                 editDateInput.value = entry.date || "";
                 if (editModalTitle) {
@@ -240,7 +234,6 @@ window.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Edit form submit: update delivery date
     editForm?.addEventListener("submit", e => {
         e.preventDefault();
         const key = editKeyInput.value;
@@ -259,7 +252,6 @@ window.addEventListener("DOMContentLoaded", () => {
             .catch(err => showMessage(err.message, "red"));
     });
 
-    // Show feedback messages
     function showMessage(txt, col) {
         messageEl.textContent = txt;
         messageEl.style.color = col;
