@@ -136,8 +136,9 @@ h1 {
     background: rgba(0, 0, 0, 0.65);
     justify-content: center;
     align-items: center;
-    display: flex;
+    // display: flex;
 }
+
 
 .modal.fullscreen .modal-content {
     width: 100%;
@@ -204,11 +205,6 @@ h1 {
     }
 }
 
-/* Ensure modal is not causing scroll issues */
-.modal {
-    overflow-y: auto;
-    align-items: center;
-}
 
 /* Form inputs */
 #editForm input[type="date"] {

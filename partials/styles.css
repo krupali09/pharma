@@ -424,9 +424,6 @@ h1 {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
 }
 
 .modal.fullscreen .modal-content {
@@ -502,14 +499,6 @@ h1 {
     height: 200px;
   }
 }
-/* Ensure modal is not causing scroll issues */
-.modal {
-  overflow-y: auto;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
 /* Form inputs */
 #editForm input[type=date] {
   width: 100%;
