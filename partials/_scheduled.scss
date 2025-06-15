@@ -167,6 +167,8 @@ h1 {
 @media (min-width: 768px) {
     .modal .modal-content {
         padding: 10px;
+        max-height: 100vh;
+        padding: 10px;
     }
 }
 
@@ -197,6 +199,9 @@ h1 {
     #signatureCanvas {
         height: 500px;
     }
+           #rxModalTitle {
+               font-size: 18px !important;
+           }
 }
 
 @media (orientation: landscape) {
